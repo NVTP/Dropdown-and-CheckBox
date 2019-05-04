@@ -7,6 +7,9 @@ void main(){
       debugShowCheckedModeBanner: false,
       title: 'Bangkok To Go!',
       home: HomePage(),
+      theme: ThemeData(
+        primarySwatch: Colors.deepOrange,
+      ),
     ),
   );
 }

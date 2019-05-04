@@ -1,3 +1,4 @@
+import 'package:bangkok_to_go_flutter_app/views/show_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -28,7 +29,7 @@ class _HomePageState extends State<HomePage> {
       'Rayoung 500.00 Baht',
       'Yala 100.00 Baht',
     ];
-    for (int i = 0; i < ddData.length; i++){
+    for (int i = 0; i < ddData.length; i++) {
       dataToDD.add(
         DropdownMenuItem(
           child: Text(
@@ -44,8 +45,8 @@ class _HomePageState extends State<HomePage> {
     ddDataSelected = ddData[0];
     cbSelected = false;
     rdDiscount = 0;
-
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -106,7 +107,7 @@ class _HomePageState extends State<HomePage> {
                     items: dataToDD,
                     value: ddDataSelected,
                     isExpanded: true,
-                    onChanged: (data){
+                    onChanged: (data) {
                       setState(() {
                         ddDataSelected = data;
                       });
@@ -126,21 +127,21 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(
                   height: 15.0,
                 ),
-               Row(
-                 children: <Widget>[
-                   Checkbox(
-                     value: cbSelected,
-                     onChanged: (data){
-                       setState(() {
-                         cbSelected = data;
-                       });
-                     },
-                   ),
-                   Text(
-                     'Goverment discount 50 Bath',
-                   ),
-                 ],
-               ),
+                Row(
+                  children: <Widget>[
+                    Checkbox(
+                      value: cbSelected,
+                      onChanged: (data) {
+                        setState(() {
+                          cbSelected = data;
+                        });
+                      },
+                    ),
+                    Text(
+                      'Goverment discount 50 Bath',
+                    ),
+                  ],
+                ),
                 SizedBox(
                   height: 15.0,
                 ),
@@ -149,7 +150,7 @@ class _HomePageState extends State<HomePage> {
                     Radio(
                       value: 0,
                       groupValue: rdDiscount,
-                      onChanged: (data){
+                      onChanged: (data) {
                         setState(() {
                           rdDiscount = 0;
                         });
@@ -161,7 +162,7 @@ class _HomePageState extends State<HomePage> {
                     Radio(
                       value: 5,
                       groupValue: rdDiscount,
-                      onChanged: (data){
+                      onChanged: (data) {
                         setState(() {
                           rdDiscount = data;
                         });
@@ -173,7 +174,7 @@ class _HomePageState extends State<HomePage> {
                     Radio(
                       value: 10,
                       groupValue: rdDiscount,
-                      onChanged: (data){
+                      onChanged: (data) {
                         setState(() {
                           rdDiscount = data;
                         });
@@ -191,12 +192,71 @@ class _HomePageState extends State<HomePage> {
                   children: <Widget>[
                     Expanded(
                       child: RaisedButton(
-                        onPressed: (){
-                          print(ctrlName.text);
-                          print(ddDataSelected);
-                          print(ctrlNumPerson.text);
-                          print(cbSelected);
-                          print(rdDiscount);
+                        onPressed: () {
+//                          print(ctrlName.text);
+//                          print(ddDataSelected);
+//                          print(ctrlNumPerson.text);
+//                          print(cbSelected);
+//                          print(rdDiscount);
+                          if (ctrlName.text.isEmpty == true) {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context){
+                                return AlertDialog(
+                                  title: Text('Warning!!!!'),
+                                  content: Text('Plese Check Your Name'),
+                                  actions: <Widget>[
+                                    FlatButton(
+                                      onPressed: (){
+                                        //TODO
+                                        //Navigator.of(context).pop();
+                                        Navigator.pop(context);
+                                      },
+                                      child: Text(
+                                        'OK',
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          }else if(ctrlNumPerson.text.isEmpty == true){
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context){
+                                return AlertDialog(
+                                  title: Text('Warning!!!!'),
+                                  content: Text('Plese Check Count'),
+                                  actions: <Widget>[
+                                    FlatButton(
+                                      onPressed: (){
+                                        //TODO
+                                        //Navigator.of(context).pop();
+                                        Navigator.pop(context);
+                                      },
+                                      child: Text(
+                                        'OK',
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          }else{
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context){
+                                  return ShowPage(
+                                    ctrlName.text,
+                                    ddDataSelected,
+                                    ctrlNumPerson.text,
+                                    cbSelected,
+                                    rdDiscount,
+                                  );
+                                }
+                              ),
+                            );
+                          }
                         },
                         child: Text(
                           'CAL',
@@ -212,9 +272,9 @@ class _HomePageState extends State<HomePage> {
                     ),
                     Expanded(
                       child: RaisedButton(
-                        onPressed: (){
+                        onPressed: () {
                           setState(() {
-                            ctrlName.text = '';
+                            ctrlName.clear();
                             ddDataSelected = ddData[0];
                             ctrlNumPerson.text = '';
                             cbSelected = false;
